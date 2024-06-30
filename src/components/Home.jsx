@@ -124,10 +124,6 @@ const Home = () => {
               alt="Gym"
               className="max-h-48 w-auto rounded-lg ml-8 shadow-md object-cover transition-transform duration-500 ease-in-out transform hover:rotate-12 origin-center"
             />
-            <span class="relative flex h-3 w-3">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
-            </span>
           </div>
           <div className="flex justify-end">
             <img
@@ -300,6 +296,67 @@ const Home = () => {
               Automate and manage marketing campaigns to boost member
               acquisition and retention.
             </p>
+          </div>
+        </div>
+      </div>
+      <div class="max-w-6xl mx-auto mt-10 grid gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mb-20">
+        {/* <!-- Card 1 --> */}
+        <div class="group bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 ease-in-out">
+          <div class="relative">
+            <img
+              src={img1}
+              alt="Placeholder"
+              class="w-full h-40 object-cover"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-75 transition-opacity duration-300 ease-in-out flex justify-center items-center">
+              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center p-4 text-white">
+                <h3 class="font-bold text-xl">Card Title One</h3>
+                <p class="text-base">
+                  Here is some more information about this product that is only
+                  revealed once hovered on.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* <!-- Card 2 --> */}
+        <div class="group bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 ease-in-out">
+          <div class="relative">
+            <img
+              src={img2}
+              alt="Placeholder"
+              class="w-full h-40 object-cover"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-75 transition-opacity duration-300 ease-in-out flex justify-center items-center">
+              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center p-4 text-white">
+                <h3 class="font-bold text-xl">Card Title Two</h3>
+                <p class="text-base">
+                  Here is some more information about this product that is only
+                  revealed once hovered on.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* <!-- Card 3 --> */}
+        <div class="group bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 ease-in-out">
+          <div class="relative">
+            <img
+              src={img3}
+              alt="Placeholder"
+              class="w-full h-40 object-cover"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-75 transition-opacity duration-300 ease-in-out flex justify-center items-center">
+              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center p-4 text-white">
+                <h3 class="font-bold text-xl">Card Title Three</h3>
+                <p class="text-base">
+                  Here is some more information about this product that is only
+                  revealed once hovered on.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
