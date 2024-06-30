@@ -1,30 +1,51 @@
-import React from "react";
+import { useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import logo1 from "../Assets/logo1.png";
 import img1 from "../Assets/img1.jpg";
 import img2 from "../Assets/img2.jpg";
 import img3 from "../Assets/img3.jpg";
-import TypewriterEffect from "./TypewriterEffect";
+//import TypewriterEffect from "./TypewriterEffect";
 
 const Home = () => {
-  const res = [
-    {
-      text: "What",
-    },
-    {
-      text: "Our",
-    },
-    {
-      text: "Members",
-    },
-    {
-      text: "Say",
-    },
-  ];
+  const servicesRef = useRef(null);
+  const faqRef = useRef(null);
 
+  const benefitsRef = useRef(null);
+  const OurServiceRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-slide-in-left");
+          }
+        });
+      },
+      { threshold: 0.5 } // Triggers when half of the element is visible
+    );
+
+    const observedElements = [
+      servicesRef.current,
+      faqRef.current,
+
+      benefitsRef.current,
+      OurServiceRef.current,
+    ];
+    observedElements.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    // Proper placement of the return statement for cleanup
+    return () => {
+      observedElements.forEach((el) => {
+        if (el) observer.unobserve(el);
+      });
+    };
+  }, []);
   return (
     <>
-      <nav className="fixed top-0 w-full z-10 flex justify-between items-center  px-8 py-4 bg-orange-100 shadow-lg cursor-pointer">
+      <nav className="fixed top-0 w-full z-10 flex justify-between items-center  px-8  bg-orange-100 shadow-lg cursor-pointer">
         <div className="flex items-center">
           <NavLink
             to="/"
@@ -39,7 +60,7 @@ const Home = () => {
         <div className="flex items-center space-x-6 bg-orange-200 py-4 px-6 rounded-full font-medium text-xl hover:shadow-lg transition duration-300">
           <NavLink
             to="/about"
-            className="hover:text-gray-700 transition duration-300"
+            className="hover:text-gray-500 transition duration-300"
             activeClassName="font-semibold"
           >
             About
@@ -72,7 +93,7 @@ const Home = () => {
           </button>
         </div>
       </nav>
-      <div className="flex flex-row pt-10 px-8 mt-28">
+      <div className="flex flex-row pt-6 px-8 mt-20 ">
         <div className="w-1/2 bg-orange-100 p-8 rounded-lg shadow-lg">
           <div className="flex justify-center items-center text-6xl font-semibold text-center py-12 px-8 bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 text-white shadow-lg rounded-lg">
             Everything you need to run your online Gym Business
@@ -87,7 +108,7 @@ const Home = () => {
             optimize your profits.
           </div>
 
-          <div className="flex items-center justify-center space-x-4 py-10">
+          <div className="flex items-center justify-center space-x-4 py-6">
             <button className="bg-black text-white py-3 px-6 rounded-full hover:bg-gray-800 transition-transform duration-500 ease-in-out transform hover:scale-105">
               Get a Demo
             </button>
@@ -96,13 +117,17 @@ const Home = () => {
             </button>
           </div>
         </div>
-        <div className="w-1/2 flex flex-col space-y-8">
+        <div className="w-1/2 flex flex-col space-y-4">
           <div className="flex justify-start">
             <img
               src={img1}
               alt="Gym"
               className="max-h-48 w-auto rounded-lg ml-8 shadow-md object-cover transition-transform duration-500 ease-in-out transform hover:rotate-12 origin-center"
             />
+            <span class="relative flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
+            </span>
           </div>
           <div className="flex justify-end">
             <img
@@ -121,13 +146,16 @@ const Home = () => {
         </div>
       </div>
       {/* Testimonials Section */}
-      <div className="px-8 py-10 bg-gray-100">
-        <h2 className="text-center text-3xl font-bold text-orange-600 pt-28">
-          {/* What Our Members Say */}
-          <TypewriterEffect words={res} />
+      <div className="px-8 py-10 ">
+        <h2
+          ref={servicesRef}
+          className="text-center text-3xl font-bold text-orange-600  pt-28"
+        >
+          What Our Members Say
+          {/* <TypewriterEffect words={res} /> */}
         </h2>
-        <div className="flex flex-col justify-center ite mt-6">
-          <div className="bg-white shadow-lg p-6 m-4 rounded italic max-w-2xl">
+        <div className="flex flex-col justify-center items-center mt-6">
+          <div className="bg-white shadow-lg p-6 m-4 rounded italic max-w-2xl transition duration-300 hover:border-4 hover:border-orange-500 hover:shadow-xl">
             <p>
               "Joining GymSewa has transformed my fitness routine completely.
               The support and resources available are top-notch!" - Jane Doe
@@ -141,7 +169,7 @@ const Home = () => {
               infographics service.
             </p>
           </div>
-          <div className="bg-white shadow-lg p-6 m-4 rounded italic max-w-2xl">
+          <div className="bg-white shadow-lg p-6 m-4 rounded italic max-w-2xl transition duration-300 hover:border-4 hover:border-orange-500 hover:shadow-xl">
             <p>
               "Joining GymSewa has transformed my fitness routine completely.
               The support and resources available are top-notch!" - Jane Doe
@@ -158,33 +186,36 @@ const Home = () => {
         </div>
       </div>
       <div className="px-8 py-28">
-        <h2 className="text-center text-3xl font-bold text-orange-600">
+        <h2
+          ref={faqRef}
+          className="text-center text-3xl font-bold text-orange-600 mt-28 mb-20"
+        >
           Frequently Asked Questions
         </h2>
         <div className="space-y-4 mt-4">
-          <div className="faq-item">
-            <h3 className="font-bold text-xl">
+          <div className="faq-item bg-white p-4 shadow rounded-lg hover:shadow-md transition-shadow duration-300">
+            <h3 className="font-bold text-xl text-gray-600">
               How do I sign up for a membership?
             </h3>
-            <p>
+            <p className="text-gray-600 mt-2">
               Signing up is easy! Visit our Pricing page, choose your plan, and
               follow the instructions.
             </p>
           </div>
-          <div className="faq-item">
-            <h3 className="font-bold text-xl">
+          <div className="faq-item bg-white p-4 shadow rounded-lg hover:shadow-md transition-shadow duration-300">
+            <h3 className="font-bold text-xl text-gray-600">
               How do I sign up for a membership?
             </h3>
-            <p>
+            <p className="text-gray-600 mt-2">
               Signing up is easy! Visit our Pricing page, choose your plan, and
               follow the instructions.
             </p>
           </div>
-          <div className="faq-item">
-            <h3 className="font-bold text-xl">
+          <div className="faq-item bg-white p-4 shadow rounded-lg hover:shadow-md transition-shadow duration-300">
+            <h3 className="font-bold text-xl text-gray-600">
               How do I sign up for a membership?
             </h3>
-            <p>
+            <p className="text-gray-700 mt-2">
               Signing up is easy! Visit our Pricing page, choose your plan, and
               follow the instructions.
             </p>
@@ -193,9 +224,13 @@ const Home = () => {
         </div>
       </div>
       <div className="px-8 py-10 bg-orange-100">
-        <h2 className="text-center text-3xl font-bold text-orange-600">
+        <h2
+          ref={benefitsRef}
+          className="text-center text-3xl font-bold text-orange-600 py-12"
+        >
           Benefits of Using Our Gym Management System
         </h2>
+
         <ul className="list-disc space-y-2 mt-4 pl-10 text-lg text-gray-700">
           <li>
             Streamlined operations through automated scheduling and member
@@ -219,45 +254,48 @@ const Home = () => {
           </li>
         </ul>
       </div>
-      <div className="px-8 py-10 bg-white">
-        <h2 className="text-center text-3xl font-bold text-orange-600">
+      <div class="px-8 pt-20 pb-40 bg-white">
+        <h2
+          ref={OurServiceRef}
+          className="text-center text-3xl font-bold text-orange-600 mt-28 mb-20 "
+        >
           Our Services
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-          <div className="bg-white shadow-lg p-6 rounded-lg text-center">
-            <h3 className="font-bold text-xl">Member Management</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+          <div class="bg-white shadow-lg p-6 rounded-lg text-center hover:bg-orange-500 hover:text-white transition-colors duration-200">
+            <h3 class="font-bold text-xl">Member Management</h3>
             <p>Manage all member information and track activity with ease.</p>
           </div>
-          <div className="bg-white shadow-lg p-6 rounded-lg text-center">
-            <h3 className="font-bold text-xl">Financial Tools</h3>
+          <div class="bg-white shadow-lg p-6 rounded-lg text-center hover:bg-orange-500 hover:text-white transition-colors duration-200">
+            <h3 class="font-bold text-xl">Financial Tools</h3>
             <p>
               Access integrated billing, payment processing, and financial
               reporting tools.
             </p>
           </div>
-          <div className="bg-white shadow-lg p-6 rounded-lg text-center">
-            <h3 className="font-bold text-xl">Marketing Support</h3>
+          <div class="bg-white shadow-lg p-6 rounded-lg text-center hover:bg-orange-500 hover:text-white transition-colors duration-200">
+            <h3 class="font-bold text-xl">Marketing Support</h3>
             <p>
               Automate and manage marketing campaigns to boost member
               acquisition and retention.
             </p>
           </div>
-          <div className="bg-white shadow-lg p-6 rounded-lg text-center">
-            <h3 className="font-bold text-xl">Marketing Support</h3>
+          <div class="bg-white shadow-lg p-6 rounded-lg text-center hover:bg-orange-500 hover:text-white transition-colors duration-200">
+            <h3 class="font-bold text-xl">Marketing Support</h3>
             <p>
               Automate and manage marketing campaigns to boost member
               acquisition and retention.
             </p>
           </div>
-          <div className="bg-white shadow-lg p-6 rounded-lg text-center">
-            <h3 className="font-bold text-xl">Marketing Support</h3>
+          <div class="bg-white shadow-lg p-6 rounded-lg text-center hover:bg-orange-500 hover:text-white transition-colors duration-200">
+            <h3 class="font-bold text-xl">Marketing Support</h3>
             <p>
               Automate and manage marketing campaigns to boost member
               acquisition and retention.
             </p>
           </div>
-          <div className="bg-white shadow-lg p-6 rounded-lg text-center">
-            <h3 className="font-bold text-xl">Marketing Support</h3>
+          <div class="bg-white shadow-lg p-6 rounded-lg text-center hover:bg-orange-500 hover:text-white transition-colors duration-200">
+            <h3 class="font-bold text-xl">Marketing Support</h3>
             <p>
               Automate and manage marketing campaigns to boost member
               acquisition and retention.
@@ -265,6 +303,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+
       <footer className="w-full bg-black text-white py-8">
         <div className="container mx-auto flex justify-around">
           <div>
